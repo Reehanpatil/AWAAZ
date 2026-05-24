@@ -1,0 +1,2168 @@
+<!doctype html>
+<html lang="hi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>AWAAZ — Aam Aadmi Waali Aazaad Zameer</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans:wght@400;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        scroll-behavior: smooth;
+      }
+      :root {
+        --ink: #0a0a0a;
+        --paper: #f5f0e8;
+        --red: #c0392b;
+        --redl: #e74c3c;
+        --gold: #d4a017;
+        --muted: #6b6b6b;
+        --border: #d0c9bb;
+        --light: #ede8de;
+      }
+      body {
+        font-family: "Noto Sans", sans-serif;
+        background: var(--paper);
+        color: var(--ink);
+        line-height: 1.6;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+      img {
+        max-width: 100%;
+      }
+
+      /* SCROLLBAR */
+      ::-webkit-scrollbar {
+        width: 5px;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--red);
+      }
+
+      /* PROGRESS */
+      #prog {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 3px;
+        background: var(--red);
+        z-index: 1000;
+        transition: width 0.1s;
+      }
+
+      /* NAVBAR */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 200;
+        background: var(--paper);
+        border-bottom: 2px solid var(--ink);
+        height: 64px;
+        display: flex;
+        align-items: center;
+      }
+      .nav-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 24px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .nav-logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .nav-logo .roach {
+        font-size: 28px;
+        transition: transform 0.3s;
+      }
+      .nav-logo .roach:hover {
+        transform: rotate(180deg) scale(1.3);
+      }
+      .logo-text {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 26px;
+        letter-spacing: 2px;
+        line-height: 1;
+      }
+      .logo-sub {
+        font-size: 10px;
+        color: var(--muted);
+        letter-spacing: 1px;
+      }
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+      }
+      .nav-links a {
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: var(--ink);
+        position: relative;
+        padding-bottom: 2px;
+      }
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--red);
+        transition: width 0.3s;
+      }
+      .nav-links a:hover::after,
+      .nav-links a.active::after {
+        width: 100%;
+      }
+      .nav-cta {
+        background: var(--red);
+        color: var(--paper);
+        padding: 9px 20px;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        border: 2px solid var(--ink);
+        box-shadow: 3px 3px 0 var(--ink);
+        transition: all 0.2s;
+      }
+      .nav-cta:hover {
+        background: var(--redl);
+        transform: translate(-1px, -1px);
+        box-shadow: 4px 4px 0 var(--ink);
+      }
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+        padding: 8px;
+      }
+      .hamburger span {
+        width: 24px;
+        height: 2px;
+        background: var(--ink);
+        display: block;
+        transition: all 0.3s;
+      }
+      #mobile-nav {
+        display: none;
+        flex-direction: column;
+        background: var(--paper);
+        border-top: 2px solid var(--ink);
+        padding: 16px 24px;
+        gap: 0;
+      }
+      #mobile-nav a {
+        display: block;
+        padding: 12px 0;
+        font-size: 13px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border-bottom: 1px solid var(--border);
+      }
+      #mobile-nav .nav-cta {
+        margin-top: 12px;
+        text-align: center;
+        display: block;
+        box-shadow: none;
+      }
+
+      /* MARQUEE */
+      .marquee-wrap {
+        overflow: hidden;
+        background: var(--ink);
+        color: var(--paper);
+        padding: 12px 0;
+        border-top: 2px solid var(--ink);
+        border-bottom: 2px solid var(--ink);
+      }
+      .marquee-track {
+        display: flex;
+        white-space: nowrap;
+        animation: marquee 22s linear infinite;
+      }
+      .marquee-track span {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 22px;
+        letter-spacing: 3px;
+        padding: 0 32px;
+      }
+      .marquee-track span.accent {
+        color: var(--red);
+      }
+      @keyframes marquee {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+
+      /* SECTIONS */
+      section {
+        padding: 80px 24px;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .sec-label {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 16px;
+        letter-spacing: 4px;
+        color: var(--red);
+        margin-bottom: 8px;
+      }
+      .sec-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(40px, 6vw, 64px);
+        line-height: 1;
+        margin-bottom: 16px;
+      }
+      .sec-rule {
+        width: 80px;
+        height: 3px;
+        background: var(--red);
+        margin-bottom: 0;
+      }
+      .sec-rule.center {
+        margin: 0 auto 0;
+      }
+      .dashed {
+        height: 2px;
+        background: repeating-linear-gradient(
+          to right,
+          var(--ink) 0,
+          var(--ink) 8px,
+          transparent 8px,
+          transparent 16px
+        );
+      }
+
+      /* REVEAL */
+      .reveal {
+        opacity: 0;
+        transform: translateY(28px);
+        transition:
+          opacity 0.65s ease,
+          transform 0.65s ease;
+      }
+      .reveal.d1 {
+        transition-delay: 0.1s;
+      }
+      .reveal.d2 {
+        transition-delay: 0.2s;
+      }
+      .reveal.d3 {
+        transition-delay: 0.3s;
+      }
+      .reveal.d4 {
+        transition-delay: 0.4s;
+      }
+      .reveal.on {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* CARDS */
+      .card {
+        background: var(--paper);
+        border: 2px solid var(--ink);
+        box-shadow: 4px 4px 0 var(--ink);
+        transition:
+          transform 0.25s,
+          box-shadow 0.25s;
+      }
+      .card:hover {
+        transform: translate(-3px, -3px);
+        box-shadow: 7px 7px 0 var(--ink);
+      }
+      .card-red {
+        background: var(--red);
+        color: var(--paper);
+        border: 2px solid var(--ink);
+        box-shadow: 4px 4px 0 var(--ink);
+        transition:
+          transform 0.25s,
+          box-shadow 0.25s;
+      }
+      .card-red:hover {
+        transform: translate(-3px, -3px);
+        box-shadow: 7px 7px 0 var(--ink);
+      }
+      .card-dark {
+        background: var(--ink);
+        color: var(--paper);
+        border: 2px solid var(--ink);
+      }
+
+      /* STAMP */
+      .stamp {
+        border: 4px solid var(--red);
+        box-shadow: 6px 6px 0 var(--red);
+        position: relative;
+      }
+      .stamp::before {
+        content: "";
+        position: absolute;
+        inset: 6px;
+        border: 1px dashed rgba(192, 57, 43, 0.3);
+        pointer-events: none;
+      }
+      .stamp-badge {
+        position: absolute;
+        top: -12px;
+        right: -12px;
+        background: var(--red);
+        color: var(--paper);
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 18px;
+        padding: 4px 10px;
+        transform: rotate(6deg);
+        border: 2px solid var(--ink);
+      }
+
+      /* HERO */
+      #home {
+        padding-top: 100px;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 48px;
+        align-items: center;
+      }
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--ink);
+        color: var(--paper);
+        padding: 6px 14px;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 20px;
+      }
+      .hero-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(80px, 12vw, 140px);
+        line-height: 0.9;
+        color: var(--ink);
+        margin-bottom: 12px;
+      }
+      .hero-sub {
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+      .hero-desc {
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.7;
+        margin-bottom: 28px;
+      }
+      .hero-btns {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 36px;
+      }
+      .btn-primary {
+        background: var(--red);
+        color: var(--paper);
+        padding: 12px 28px;
+        font-weight: 700;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        border: 2px solid var(--ink);
+        box-shadow: 4px 4px 0 var(--ink);
+        transition: all 0.2s;
+        display: inline-block;
+      }
+      .btn-primary:hover {
+        background: var(--redl);
+        transform: translate(-2px, -2px);
+        box-shadow: 6px 6px 0 var(--ink);
+      }
+      .btn-outline {
+        background: transparent;
+        color: var(--ink);
+        padding: 12px 28px;
+        font-weight: 700;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        border: 2px solid var(--ink);
+        box-shadow: 4px 4px 0 var(--ink);
+        transition: all 0.2s;
+        display: inline-block;
+      }
+      .btn-outline:hover {
+        background: var(--ink);
+        color: var(--paper);
+        transform: translate(-2px, -2px);
+        box-shadow: 6px 6px 0 var(--muted);
+      }
+      .stats-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0;
+      }
+      .stat {
+        text-align: center;
+        padding: 0 16px;
+      }
+      .stat:not(:last-child) {
+        border-right: 1px solid var(--border);
+      }
+      .stat-num {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 42px;
+        color: var(--red);
+        line-height: 1;
+      }
+      .stat-label {
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 700;
+        color: var(--muted);
+      }
+      .stamp-card {
+        padding: 32px;
+        max-width: 360px;
+        margin-left: auto;
+      }
+      .stamp-num {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 64px;
+        color: var(--red);
+        line-height: 1;
+        text-align: center;
+        margin-bottom: 6px;
+      }
+      .stamp-sub {
+        text-align: center;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--muted);
+        font-weight: 700;
+        margin-bottom: 20px;
+      }
+      .stamp-items {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .stamp-item {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+      }
+      .stamp-num-small {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 22px;
+        color: var(--red);
+        line-height: 1;
+        flex-shrink: 0;
+        min-width: 24px;
+      }
+      .stamp-item p {
+        font-size: 13px;
+        font-weight: 600;
+      }
+      .stamp-footer {
+        margin-top: 20px;
+        padding-top: 16px;
+        border-top: 2px solid var(--ink);
+        text-align: center;
+      }
+      .stamp-footer span {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 14px;
+        letter-spacing: 3px;
+        color: var(--muted);
+      }
+
+      /* PROBLEM SECTION */
+      #problem {
+        background: var(--ink);
+        color: var(--paper);
+      }
+      #problem .sec-label {
+        color: var(--red);
+      }
+      .prob-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        margin-top: 40px;
+      }
+      .prob-card {
+        border: 2px solid rgba(255, 255, 255, 0.15);
+        padding: 24px;
+        transition: border-color 0.2s;
+      }
+      .prob-card:hover {
+        border-color: var(--red);
+      }
+      .prob-num {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 52px;
+        color: var(--red);
+        line-height: 1;
+        margin-bottom: 10px;
+      }
+      .prob-title {
+        font-size: 15px;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+      .prob-desc {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.6);
+        line-height: 1.6;
+      }
+
+      /* FEATURES */
+      .feat-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+        margin-top: 40px;
+      }
+      .feat-num {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 60px;
+        color: var(--red);
+        line-height: 1;
+        margin-bottom: 8px;
+      }
+      .feat-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 32px;
+        margin-bottom: 12px;
+      }
+      .feat-desc {
+        font-size: 14px;
+        color: var(--muted);
+        line-height: 1.7;
+        margin-bottom: 16px;
+      }
+      .feat-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .feat-list li {
+        font-size: 13px;
+        display: flex;
+        gap: 8px;
+      }
+      .feat-list li::before {
+        content: "→";
+        color: var(--red);
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+      .feat-list.white li {
+        color: rgba(255, 255, 255, 0.8);
+      }
+      .feat-list.white li::before {
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      /* TIMELINE */
+      #how {
+        border-top: 2px solid var(--ink);
+      }
+      .timeline-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        margin-top: 40px;
+      }
+      .timeline-col {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .tl-item {
+        display: flex;
+        gap: 16px;
+        padding-bottom: 16px;
+        position: relative;
+      }
+      .tl-item:not(:last-child)::after {
+        content: "";
+        position: absolute;
+        left: 23px;
+        top: 48px;
+        bottom: 0;
+        width: 2px;
+        background: repeating-linear-gradient(
+          to bottom,
+          var(--red) 0,
+          var(--red) 5px,
+          transparent 5px,
+          transparent 10px
+        );
+      }
+      .tl-num {
+        width: 48px;
+        height: 48px;
+        flex-shrink: 0;
+        background: var(--ink);
+        color: var(--paper);
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid var(--ink);
+      }
+      .tl-num.red {
+        background: var(--red);
+      }
+      .tl-num.check {
+        font-size: 18px;
+      }
+      .tl-body {
+        padding-bottom: 16px;
+        flex: 1;
+      }
+      .tl-head {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 4px;
+        flex-wrap: wrap;
+      }
+      .tl-title {
+        font-size: 15px;
+        font-weight: 700;
+      }
+      .tl-badge {
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 2px 8px;
+        border: 1px solid var(--border);
+        color: var(--muted);
+      }
+      .tl-badge.red {
+        background: var(--red);
+        color: var(--paper);
+        border-color: var(--ink);
+      }
+      .tl-desc {
+        font-size: 13px;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+      .no-login-box {
+        background: var(--ink);
+        color: var(--paper);
+        padding: 20px;
+        border: 2px solid var(--ink);
+        margin-top: 8px;
+      }
+      .no-login-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 24px;
+        color: var(--red);
+        margin-bottom: 6px;
+      }
+      .no-login-desc {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.6);
+        line-height: 1.6;
+      }
+
+      /* EXAMPLE */
+      #example {
+        background: var(--ink);
+        color: var(--paper);
+      }
+      #example .sec-label {
+        color: var(--red);
+      }
+      .example-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-top: 40px;
+      }
+      .ex-card {
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 20px;
+        transition: border-color 0.2s;
+      }
+      .ex-card:hover {
+        border-color: var(--red);
+      }
+      .ex-card.highlight {
+        border: 2px solid var(--red);
+        box-shadow: 4px 4px 0 var(--red);
+      }
+      .ex-day {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 24px;
+        color: var(--red);
+        margin-bottom: 6px;
+      }
+      .ex-title {
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+      .ex-desc {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.55);
+        line-height: 1.6;
+      }
+
+      /* CATEGORIES */
+      #categories {
+        border-top: 2px solid var(--ink);
+      }
+      .cat-two {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 64px;
+      }
+      .cat-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 32px;
+      }
+      .cat-item {
+        border: 2px solid var(--ink);
+        padding: 14px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        box-shadow: 3px 3px 0 var(--ink);
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+        gap: 12px;
+      }
+      .cat-item:hover {
+        transform: translate(-2px, -2px);
+        box-shadow: 5px 5px 0 var(--ink);
+      }
+      .cat-label {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--red);
+        margin-bottom: 3px;
+      }
+      .cat-desc {
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .cat-code {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 30px;
+        color: var(--border);
+        flex-shrink: 0;
+      }
+      .corr-list {
+        display: flex;
+        flex-direction: column;
+        margin-top: 32px;
+      }
+      .corr-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 11px 8px;
+        border-bottom: 1px solid var(--border);
+        transition: background 0.2s;
+      }
+      .corr-item:hover {
+        background: rgba(0, 0, 0, 0.04);
+      }
+      .corr-arrow {
+        color: var(--red);
+        font-weight: 700;
+        font-size: 16px;
+        flex-shrink: 0;
+      }
+      .corr-title {
+        font-size: 13px;
+        font-weight: 700;
+        flex: 1;
+      }
+      .corr-note {
+        font-size: 11px;
+        color: var(--muted);
+        text-align: right;
+      }
+
+      /* NGO + SECURITY */
+      #ngo {
+        border-top: 2px solid var(--ink);
+      }
+      .two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 64px;
+      }
+      .ngo-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 32px;
+      }
+      .ngo-card {
+        border: 2px solid var(--ink);
+        padding: 14px 16px;
+        box-shadow: 3px 3px 0 var(--ink);
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+      .ngo-card:hover {
+        transform: translate(-2px, -2px);
+        box-shadow: 5px 5px 0 var(--ink);
+      }
+      .ngo-title {
+        font-size: 13px;
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+      .ngo-desc {
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .sec-box {
+        display: flex;
+        gap: 14px;
+        padding: 14px 16px;
+        border: 2px solid var(--ink);
+        box-shadow: 3px 3px 0 var(--ink);
+        margin-bottom: 10px;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+      .sec-box:hover {
+        transform: translate(-2px, -2px);
+        box-shadow: 5px 5px 0 var(--ink);
+      }
+      .sec-icon {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 22px;
+        color: var(--red);
+        flex-shrink: 0;
+        min-width: 36px;
+        line-height: 1.2;
+      }
+      .sec-title {
+        font-size: 13px;
+        font-weight: 700;
+        margin-bottom: 3px;
+      }
+      .sec-desc {
+        font-size: 12px;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      /* COMPARE */
+      #compare {
+        background: var(--ink);
+        color: var(--paper);
+        padding: 80px 24px;
+      }
+      .compare-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 32px;
+        font-size: 13px;
+      }
+      .compare-table th {
+        padding: 12px 16px;
+        text-align: left;
+        border-bottom: 2px solid var(--red);
+      }
+      .compare-table th:not(:first-child) {
+        text-align: center;
+      }
+      .compare-table th.aw {
+        color: var(--red);
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 18px;
+        letter-spacing: 1px;
+      }
+      .compare-table td {
+        padding: 11px 16px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .compare-table td:not(:first-child) {
+        text-align: center;
+      }
+      .compare-table td:first-child {
+        font-weight: 600;
+      }
+      .compare-table td.aw {
+        color: var(--red);
+        font-weight: 700;
+      }
+      .compare-table tr:nth-child(even) td {
+        background: rgba(255, 255, 255, 0.04);
+      }
+      .check-y {
+        color: var(--red);
+        font-weight: 700;
+      }
+      .check-n {
+        color: rgba(255, 255, 255, 0.3);
+      }
+
+      /* CTA */
+      #join {
+        border-top: 2px solid var(--ink);
+        text-align: center;
+      }
+      .cta-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        text-align: left;
+        margin: 48px 0;
+      }
+      .cta-card {
+        border: 2px solid var(--ink);
+        padding: 24px;
+        box-shadow: 4px 4px 0 var(--ink);
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+      .cta-card:hover {
+        transform: translate(-3px, -3px);
+        box-shadow: 7px 7px 0 var(--ink);
+      }
+      .cta-num {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 22px;
+        color: var(--red);
+        margin-bottom: 6px;
+      }
+      .cta-title {
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+      .cta-desc {
+        font-size: 13px;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+      .share-btns {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 48px;
+      }
+      .share-btn {
+        padding: 12px 24px;
+        font-size: 13px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        border: 2px solid var(--ink);
+        cursor: pointer;
+        transition: all 0.2s;
+        box-shadow: 3px 3px 0 var(--muted);
+        font-family: inherit;
+      }
+      .share-btn.dark {
+        background: var(--ink);
+        color: var(--paper);
+      }
+      .share-btn.dark:hover {
+        background: var(--red);
+      }
+      .share-btn.light {
+        background: var(--paper);
+        color: var(--ink);
+      }
+      .share-btn.light:hover {
+        background: var(--ink);
+        color: var(--paper);
+      }
+      .final-quote {
+        border: 4px solid var(--red);
+        box-shadow: 6px 6px 0 var(--red);
+        padding: 36px;
+        max-width: 700px;
+        margin: 0 auto;
+        position: relative;
+      }
+      .final-quote::before {
+        content: "";
+        position: absolute;
+        inset: 8px;
+        border: 1px dashed rgba(192, 57, 43, 0.3);
+        pointer-events: none;
+      }
+      .quote-text {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(18px, 3vw, 28px);
+        line-height: 1.3;
+        margin-bottom: 16px;
+      }
+      .quote-sub {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--muted);
+        font-weight: 700;
+      }
+
+      /* FOOTER */
+      footer {
+        background: var(--ink);
+        color: var(--paper);
+        border-top: 2px solid rgba(255, 255, 255, 0.1);
+        padding: 32px 24px;
+      }
+      .footer-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+      .footer-logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .footer-logo .roach {
+        font-size: 24px;
+      }
+      .footer-brand {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 22px;
+        letter-spacing: 2px;
+      }
+      .footer-sub {
+        font-size: 10px;
+        color: rgba(255, 255, 255, 0.4);
+        letter-spacing: 1px;
+      }
+      .footer-center .tagline {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 16px;
+        color: var(--red);
+        letter-spacing: 3px;
+      }
+      .footer-center .sub2 {
+        font-size: 10px;
+        color: rgba(255, 255, 255, 0.3);
+        margin-top: 4px;
+      }
+      .footer-right {
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.35);
+        text-align: right;
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 900px) {
+        .hero-grid,
+        .feat-grid,
+        .timeline-grid,
+        .cat-two,
+        .two-col {
+          grid-template-columns: 1fr;
+        }
+        .prob-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .example-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .cta-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .nav-links {
+          display: none;
+        }
+        .hamburger {
+          display: flex;
+        }
+        .stamp-card {
+          margin: 0 auto;
+        }
+        .hero-title {
+          font-size: clamp(72px, 14vw, 120px);
+        }
+        .corr-note {
+          display: none;
+        }
+      }
+      @media (max-width: 600px) {
+        .prob-grid,
+        .example-grid,
+        .cta-grid {
+          grid-template-columns: 1fr;
+        }
+        section {
+          padding: 60px 16px;
+        }
+        .hero-title {
+          font-size: 72px;
+        }
+        .share-btns {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Progress -->
+    <div id="prog" style="width: 0%"></div>
+
+    <!-- NAVBAR -->
+    <nav id="navbar">
+      <div class="nav-inner">
+        <a href="#home" class="nav-logo">
+          <span class="roach">🪳</span>
+          <div>
+            <div class="logo-text">AWAAZ</div>
+            <div class="logo-sub">Cockroach Janta Party</div>
+          </div>
+        </a>
+        <div class="nav-links">
+          <a href="#problem">Samasya</a>
+          <a href="#features">Features</a>
+          <a href="#how">Escalation</a>
+          <a href="#example">Example</a>
+          <a href="#categories">Categories</a>
+          <a href="#ngo">NGO</a>
+          <a href="#join" class="nav-cta">Join Movement</a>
+        </div>
+        <div class="hamburger" onclick="toggleMenu()">
+          <span id="h1"></span><span id="h2"></span><span id="h3"></span>
+        </div>
+      </div>
+      <div id="mobile-nav">
+        <a href="#problem" onclick="closeMenu()">Samasya</a>
+        <a href="#features" onclick="closeMenu()">Features</a>
+        <a href="#how" onclick="closeMenu()">30-Din Escalation</a>
+        <a href="#example" onclick="closeMenu()">Real Example</a>
+        <a href="#categories" onclick="closeMenu()">Categories</a>
+        <a href="#ngo" onclick="closeMenu()">NGO + Security</a>
+        <a href="#join" class="nav-cta" onclick="closeMenu()">Join Movement</a>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <section id="home">
+      <div class="container">
+        <div class="hero-grid">
+          <div>
+            <div class="hero-badge reveal">
+              <span class="roach">🪳</span> Cockroach Janta Party — May 2026
+            </div>
+            <h1 class="hero-title reveal d1">AWAAZ</h1>
+            <div class="dashed reveal d1" style="margin-bottom: 16px"></div>
+            <p class="hero-sub reveal d2">Aam Aadmi Waali Aazaad Zameer</p>
+            <p class="hero-desc reveal d2">
+              Gram Panchayat se Parliament tak —
+              <strong>ek photo, ek click, 30 din mein action.</strong> Koi login
+              nahi. Koi agent nahi. Sirf aawaz.
+            </p>
+            <div class="hero-btns reveal d3">
+              <a href="#how" class="btn-primary">Kaise Kaam Karta Hai →</a>
+              <a href="#join" class="btn-outline">Join Movement</a>
+            </div>
+            <div class="stats-row reveal d4">
+              <div class="stat">
+                <div class="stat-num" data-target="30">0</div>
+                <div class="stat-label">Din Mein Action</div>
+              </div>
+              <div class="stat">
+                <div class="stat-num" data-target="10">0</div>
+                <div class="stat-label">Escalation Steps</div>
+              </div>
+              <div class="stat">
+                <div class="stat-num">0₹</div>
+                <div class="stat-label">Cost to You</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="reveal d2">
+            <div class="stamp stamp-card">
+              <div class="stamp-badge">FREE</div>
+              <div class="stamp-num">3.7M</div>
+              <div class="stamp-sub">CJP Followers in 24 Hours</div>
+              <div class="dashed" style="margin-bottom: 20px"></div>
+              <div class="stamp-items">
+                <div class="stamp-item">
+                  <span class="stamp-num-small">01</span>
+                  <p>Koi bhi complaint kar sakta hai — anonymously</p>
+                </div>
+                <div class="stamp-item">
+                  <span class="stamp-num-small">02</span>
+                  <p>Auto-escalation — Gram Panchayat se Parliament</p>
+                </div>
+                <div class="stamp-item">
+                  <span class="stamp-num-small">03</span>
+                  <p>30 din mein nahi hua — free lawyer + RTI</p>
+                </div>
+                <div class="stamp-item">
+                  <span class="stamp-num-small">04</span>
+                  <p>Har neta ka public scorecard — Google pe dikhega</p>
+                </div>
+              </div>
+              <div class="stamp-footer">
+                <span>YOU CANNOT SQUASH A MOVEMENT</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee-wrap">
+      <div class="marquee-track">
+        <span class="accent">🪳 AWAAZ</span><span>BHRASHTACHAR BAND KARO</span
+        ><span class="accent">🪳 30 DIN MEIN ACTION</span
+        ><span>EK CLICK — EK AWAAZ</span
+        ><span class="accent">🪳 FREE LEGAL HELP</span
+        ><span>YOU CANNOT SQUASH A MOVEMENT</span>
+        <span class="accent">🪳 AWAAZ</span><span>BHRASHTACHAR BAND KARO</span
+        ><span class="accent">🪳 30 DIN MEIN ACTION</span
+        ><span>EK CLICK — EK AWAAZ</span
+        ><span class="accent">🪳 FREE LEGAL HELP</span
+        ><span>YOU CANNOT SQUASH A MOVEMENT</span>
+      </div>
+    </div>
+
+    <!-- PROBLEM -->
+    <section id="problem">
+      <div class="container">
+        <div class="reveal">
+          <div class="sec-label">Samasya Kya Hai?</div>
+          <h2 class="sec-title" style="color: var(--paper)">
+            INDIA KI AWAAZ KO<br />KOI NE SUNA NAHI
+          </h2>
+          <div class="sec-rule"></div>
+        </div>
+        <div class="prob-grid">
+          <div class="prob-card reveal">
+            <div class="prob-num">46%</div>
+            <div class="prob-title">MPs Pe Criminal Cases</div>
+            <div class="prob-desc">
+              2024 Lok Sabha mein 251 out of 543 MPs pe criminal cases hain. Yeh
+              Election Commission ka official data hai.
+            </div>
+          </div>
+          <div class="prob-card reveal d1">
+            <div class="prob-num">ZERO</div>
+            <div class="prob-title">CPGRAMS Ka Result</div>
+            <div class="prob-desc">
+              23 lakh complaints/year file hoti hain — lekin action near-zero.
+              Govt ka tool hai, public ke liye nahi.
+            </div>
+          </div>
+          <div class="prob-card reveal d2">
+            <div class="prob-num">10+</div>
+            <div class="prob-title">Alag Alag Portals</div>
+            <div class="prob-desc">
+              SSC, Railway, State PSC, Banking — sab alag portals. Ek complaint
+              ke liye 10 jagah register karo.
+            </div>
+          </div>
+          <div class="prob-card reveal">
+            <div class="prob-num">₹100</div>
+            <div class="prob-title">Cyber Cafe Cost</div>
+            <div class="prob-desc">
+              Rural youth ko sirf ek form bharne ke liye cyber cafe mein
+              Rs.50-100 dene padte hain. 60%+ ke paas laptop nahi.
+            </div>
+          </div>
+          <div class="prob-card reveal d1">
+            <div class="prob-num">RTI?</div>
+            <div class="prob-title">Common Aadmi Nahi Kar Sakta</div>
+            <div class="prob-desc">
+              RTI powerful hai lekin complicated. Procedure jaanna padta hai,
+              form, follow-up — sab mushkil.
+            </div>
+          </div>
+          <div class="prob-card reveal d2">
+            <div class="prob-num">DARR</div>
+            <div class="prob-title">Whistleblower Harassment</div>
+            <div class="prob-desc">
+              Evidence dete hain — police ulta case karti hai. Log sochte hain —
+              "bolunga toh problem mein pad jaaunga."
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section id="features">
+      <div class="container">
+        <div class="reveal" style="text-align: center">
+          <div class="sec-label">Awaaz Kya Hai?</div>
+          <h2 class="sec-title">TEEN KAAM — EK PLATFORM</h2>
+          <div class="sec-rule center"></div>
+        </div>
+        <div class="feat-grid">
+          <div class="card" style="padding: 32px" class="reveal">
+            <div class="feat-num">01</div>
+            <div class="dashed" style="margin-bottom: 16px"></div>
+            <div class="feat-title">NEETA WATCH</div>
+            <p class="feat-desc">
+              Har MP/MLA ka public scorecard. Kitni complaints aayi, kitni
+              resolve hui — sab publicly visible. Google pe index hogi rating.
+            </p>
+            <ul class="feat-list">
+              <li>Public resolve rate dikhega</li>
+              <li>Google indexed score</li>
+              <li>Election mein direct impact</li>
+            </ul>
+          </div>
+          <div class="card-red reveal d1" style="padding: 32px">
+            <div class="feat-num" style="color: rgba(255, 255, 255, 0.4)">
+              02
+            </div>
+            <div
+              style="
+                height: 2px;
+                background: rgba(255, 255, 255, 0.25);
+                margin-bottom: 16px;
+              "
+            ></div>
+            <div class="feat-title">RISHWAT REPORT</div>
+            <p class="feat-desc" style="color: rgba(255, 255, 255, 0.75)">
+              Bribe manga? Anonymous report karo with photo/video. Evidence
+              encrypted server pe — phone se auto-delete.
+            </p>
+            <ul class="feat-list white">
+              <li>100% anonymous</li>
+              <li>Evidence encrypted + auto-delete</li>
+              <li>Auto media alert</li>
+            </ul>
+          </div>
+          <div class="card reveal d2" style="padding: 32px">
+            <div class="feat-num">03</div>
+            <div class="dashed" style="margin-bottom: 16px"></div>
+            <div class="feat-title">KAAM KARO</div>
+            <p class="feat-desc">
+              Koi bhi problem report karo — 30 din ki deadline — auto-escalation
+              chain — Gram Panchayat se Parliament tak.
+            </p>
+            <ul class="feat-list">
+              <li>30-din auto-escalation</li>
+              <li>RTI auto-file (day 21)</li>
+              <li>Free lawyer assign (day 25+)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section id="how">
+      <div class="container">
+        <div class="reveal">
+          <div class="sec-label">30-Din Resolution System</div>
+          <h2 class="sec-title">GRAM PANCHAYAT<br />SE PARLIAMENT TAK</h2>
+          <div class="sec-rule"></div>
+        </div>
+        <div class="timeline-grid">
+          <div class="timeline-col">
+            <div class="tl-item reveal">
+              <div class="tl-num">1</div>
+              <div class="tl-body">
+                <div class="tl-head">
+                  <span class="tl-title">Complaint Submit</span
+                  ><span class="tl-badge">Din 1</span>
+                </div>
+                <p class="tl-desc">
+                  Photo/video ke saath — NO LOGIN — sirf pin code. AI verify
+                  karta hai. 2 minute mein done.
+                </p>
+              </div>
+            </div>
+            <div class="tl-item reveal">
+              <div class="tl-num">2</div>
+              <div class="tl-body">
+                <div class="tl-head">
+                  <span class="tl-title">AI Verification</span
+                  ><span class="tl-badge">Din 1-2</span>
+                </div>
+                <p class="tl-desc">
+                  Fake? VPN? Duplicate? Real laga toh verified — suspicious laga
+                  toh community verification queue.
+                </p>
+              </div>
+            </div>
+            <div class="tl-item reveal">
+              <div class="tl-num">3</div>
+              <div class="tl-body">
+                <div class="tl-head">
+                  <span class="tl-title">Gram Panchayat Alert</span
+                  ><span class="tl-badge">Din 2-3</span>
+                </div>
+                <p class="tl-desc">
+                  Sarpanch ko SMS/notification — "48 ghante mein respond karo ya
+                  escalation hogi."
+                </p>
+              </div>
+            </div>
+            <div class="tl-item reveal">
+              <div class="tl-num">4</div>
+              <div class="tl-body">
+                <div class="tl-head">
+                  <span class="tl-title">Taluka / Block Level</span
+                  ><span class="tl-badge">Din 4-6</span>
+                </div>
+                <p class="tl-desc">
+                  Koi response nahi? Taluka Development Officer + local
+                  newspaper ko auto-tip.
+                </p>
+              </div>
+            </div>
+            <div class="tl-item reveal">
+              <div class="tl-num red">5</div>
+              <div class="tl-body">
+                <div class="tl-head">
+                  <span class="tl-title">District Collector</span
+                  ><span class="tl-badge red">Din 7-10</span>
+                </div>
+                <p class="tl-desc">
+                  District Collector + RTI Cell ko complaint. Volunteer
+                  moderator case review.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-col">
+            <div class="tl-item reveal">
+              <div class="tl-num red">6</div>
+              <div class="tl-body">
+                <div class="tl-head">
+                  <span class="tl-title">MLA + State Level</span
+                  ><span class="tl-badge red">Din 11-15</span>
+                </div>
+                <p class="tl-desc">
+                  MLA ko direct message. State ministry + Human Rights
+                  Commission alert.
+                </p>
+              </div>
+            </div>
+            <div class="tl-item reveal">
+              <div class="tl-num red">7</div>
+              <div class="tl-body">
+                <div class="tl-head">
+                  <span class="tl-title">MP + National Level</span
+                  ><span class="tl-badge red">Din 16-20</span>
+                </div>
+                <p class="tl-desc">
+                  MP ko notification. National dashboard pe "Orange Zone."
+                  National media tip.
+                </p>
+              </div>
+            </div>
+            <div class="tl-item reveal">
+              <div class="tl-num red">8</div>
+              <div class="tl-body">
+                <div class="tl-head">
+                  <span class="tl-title">RTI Auto-File</span
+                  ><span class="tl-badge red">Din 21-25</span>
+                </div>
+                <p class="tl-desc">
+                  Platform RTI draft karta hai — user ek click kare —
+                  electronically file. Govt ko legally jawab dena PADEGA.
+                </p>
+              </div>
+            </div>
+            <div class="tl-item reveal">
+              <div class="tl-num red">9</div>
+              <div class="tl-body">
+                <div class="tl-head">
+                  <span class="tl-title">RED ZONE + Free Lawyer</span
+                  ><span class="tl-badge red">Din 26-30</span>
+                </div>
+                <p class="tl-desc">
+                  National shame list. Volunteer lawyer assign — FREE. High
+                  Court / Consumer Forum case file.
+                </p>
+              </div>
+            </div>
+            <div class="tl-item reveal">
+              <div class="tl-num check">✓</div>
+              <div class="tl-body">
+                <div class="tl-head">
+                  <span class="tl-title">Court Order</span
+                  ><span class="tl-badge">Din 30+</span>
+                </div>
+                <p class="tl-desc">
+                  Court order — department execute karta hai. Public confirm
+                  karti hai. Neta score update. Case closed.
+                </p>
+              </div>
+            </div>
+            <div class="no-login-box reveal">
+              <div class="no-login-title">ZERO LOGIN REQUIRED</div>
+              <p class="no-login-desc">
+                Koi naam nahi. Koi account nahi. Sirf pin code aur photo.
+                Aadhaar sirf optional — "Verified Citizen" badge ke liye.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXAMPLE -->
+    <section id="example">
+      <div class="container">
+        <div class="reveal">
+          <div class="sec-label">Ek Real Example</div>
+          <h2 class="sec-title" style="color: var(--paper)">
+            RAMESH KI KAHANI
+          </h2>
+          <div class="sec-rule"></div>
+          <p
+            style="
+              color: rgba(255, 255, 255, 0.6);
+              font-size: 14px;
+              margin-top: 16px;
+              max-width: 600px;
+            "
+          >
+            Maharashtra ke ek chhote gaon mein sadak 3 saal se tooti hai.
+            Sarpanch ke paas 4 baar gaya — "ho jaayega" suna. Kuch nahi hua.
+            Phir Ramesh ne AWAAZ use kiya.
+          </p>
+        </div>
+        <div class="example-grid">
+          <div class="ex-card reveal">
+            <div class="ex-day">DIN 1</div>
+            <div class="ex-title">2 Minute, Ek Photo</div>
+            <p class="ex-desc">
+              AWAAZ app khola. Koi login nahi. Tooti sadak ki photo — pin code —
+              submit. Complaint ID mili — WhatsApp pe share kiya.
+            </p>
+          </div>
+          <div class="ex-card reveal d1">
+            <div class="ex-day">DIN 2</div>
+            <div class="ex-title">Community Verified</div>
+            <p class="ex-desc">
+              3 aur logon ne same sadak report ki. "Community Complaint" ban
+              gayi — zyada weight mili system mein.
+            </p>
+          </div>
+          <div class="ex-card reveal d2">
+            <div class="ex-day">DIN 3</div>
+            <div class="ex-title">Sarpanch Ko Alert</div>
+            <p class="ex-desc">
+              Sarpanch ke phone pe SMS: "48 ghante mein respond karo." Sarpanch
+              ne ignore kiya. System aage badha.
+            </p>
+          </div>
+          <div class="ex-card reveal">
+            <div class="ex-day">DIN 8</div>
+            <div class="ex-title">Collector + Media</div>
+            <p class="ex-desc">
+              District Collector ko complaint. Local newspaper mein khabar:
+              "Gaon ki sadak 3 saal se kharab — koi action nahi."
+            </p>
+          </div>
+          <div class="ex-card reveal d1">
+            <div class="ex-day">DIN 22</div>
+            <div class="ex-title">RTI Auto-File</div>
+            <p class="ex-desc">
+              Ramesh ne ek click kiya — RTI electronically file ho gayi.
+              Government ko ab legally jawab dena hi padega.
+            </p>
+          </div>
+          <div class="ex-card highlight reveal d2">
+            <div class="ex-day">DIN 34 ✓</div>
+            <div class="ex-title">Kaam Hua!</div>
+            <p class="ex-desc">
+              PWD engineer aaya. Survey hua. Tender issue hua. 3 saal ka kaam 34
+              din mein.
+              <strong style="color: var(--paper)"
+                >Zero paisa. Zero agent.</strong
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CATEGORIES -->
+    <section id="categories">
+      <div class="container">
+        <div class="cat-two">
+          <div>
+            <div class="reveal">
+              <div class="sec-label">Complaint Categories</div>
+              <h2 class="sec-title">KYA REPORT<br />KAR SAKTE HAIN?</h2>
+              <div class="sec-rule"></div>
+            </div>
+            <div class="cat-list">
+              <div class="cat-item reveal">
+                <div>
+                  <div class="cat-label">Gram Panchayat / Ward</div>
+                  <div class="cat-desc">
+                    Tooti sadak, bijli, naali, ration, school, anganwadi,
+                    handpump, kachra
+                  </div>
+                </div>
+                <span class="cat-code">GP</span>
+              </div>
+              <div class="cat-item reveal">
+                <div>
+                  <div class="cat-label">Taluka / Block Level</div>
+                  <div class="cat-desc">
+                    Talathi, 7/12 utara, land record, caste certificate,
+                    birth/death cert
+                  </div>
+                </div>
+                <span class="cat-code">TL</span>
+              </div>
+              <div class="cat-item reveal">
+                <div>
+                  <div class="cat-label">Jilla / District</div>
+                  <div class="cat-desc">
+                    Hospital, PM Awas, PM Kisan, FIR nahi, Collector office,
+                    scholarship
+                  </div>
+                </div>
+                <span class="cat-code">DT</span>
+              </div>
+              <div class="cat-item reveal">
+                <div>
+                  <div class="cat-label">MLA / State Level</div>
+                  <div class="cat-desc">
+                    State highway, bijli dept, tender ghotala, state hospital,
+                    college fees
+                  </div>
+                </div>
+                <span class="cat-code">ST</span>
+              </div>
+              <div class="cat-item reveal">
+                <div>
+                  <div class="cat-label">MP / National Level</div>
+                  <div class="cat-desc">
+                    Railway, central schemes, national highway, MNREGA, central
+                    ministry
+                  </div>
+                </div>
+                <span class="cat-code">NL</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="reveal">
+              <div class="sec-label">Bhrashtachar Report</div>
+              <h2 class="sec-title">KIS TYPE KA<br />CORRUPTION?</h2>
+              <div class="sec-rule"></div>
+            </div>
+            <div class="corr-list">
+              <div class="corr-item reveal">
+                <span class="corr-arrow">→</span
+                ><span class="corr-title">Rishwat</span
+                ><span class="corr-note">Sarkari kaam ke liye extra paisa</span>
+              </div>
+              <div class="corr-item reveal">
+                <span class="corr-arrow">→</span
+                ><span class="corr-title">Agent Mafia</span
+                ><span class="corr-note">Agent ke through kaam karna</span>
+              </div>
+              <div class="corr-item reveal">
+                <span class="corr-arrow">→</span
+                ><span class="corr-title">Scheme Ghotala</span
+                ><span class="corr-note"
+                  >PM Awas, ration, scholarship ghotala</span
+                >
+              </div>
+              <div class="corr-item reveal">
+                <span class="corr-arrow">→</span
+                ><span class="corr-title">Tender Corruption</span
+                ><span class="corr-note">Sarkari contract mein ghotala</span>
+              </div>
+              <div class="corr-item reveal">
+                <span class="corr-arrow">→</span
+                ><span class="corr-title">Police Corruption</span
+                ><span class="corr-note">FIR nahi / paisa lekar case band</span>
+              </div>
+              <div class="corr-item reveal">
+                <span class="corr-arrow">→</span
+                ><span class="corr-title">Ration Dealer</span
+                ><span class="corr-note">Ration bahar becha / kam maal</span>
+              </div>
+              <div class="corr-item reveal">
+                <span class="corr-arrow">→</span
+                ><span class="corr-title">Hospital Bribe</span
+                ><span class="corr-note">Bina paison ke nahi dekha</span>
+              </div>
+              <div class="corr-item reveal">
+                <span class="corr-arrow">→</span
+                ><span class="corr-title">Election Corruption</span
+                ><span class="corr-note"
+                  >Vote list se naam kata / vote kharida</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NGO + SECURITY -->
+    <section id="ngo">
+      <div class="container">
+        <div class="two-col">
+          <div>
+            <div class="reveal">
+              <div class="sec-label">NGO Network</div>
+              <h2 class="sec-title">HUM AKELE<br />NAHI HAIN</h2>
+              <div class="sec-rule"></div>
+              <p style="color: var(--muted); font-size: 14px; margin-top: 16px">
+                AWAAZ pehle se kaam kar rahi NGOs ki takat ko ek platform pe
+                laata hai.
+              </p>
+            </div>
+            <div class="ngo-list">
+              <div class="ngo-card reveal">
+                <div class="ngo-title">I Paid A Bribe (IPAB)</div>
+                <div class="ngo-desc">
+                  1.98 lakh+ bribe reports already. Unka data + AWAAZ ka action
+                  = real impact.
+                </div>
+              </div>
+              <div class="ngo-card reveal">
+                <div class="ngo-title">Janaagraha</div>
+                <div class="ngo-desc">
+                  Urban governance aur citizen participation. City-level routing
+                  partner.
+                </div>
+              </div>
+              <div class="ngo-card reveal">
+                <div class="ngo-title">RTI Activists Network</div>
+                <div class="ngo-desc">
+                  RTI file karne mein help. Auto-RTI mein legal review karte
+                  hain.
+                </div>
+              </div>
+              <div class="ngo-card reveal">
+                <div class="ngo-title">Legal Aid NGOs</div>
+                <div class="ngo-desc">
+                  Free legal help poor citizens ko. AWAAZ lawyer network ka
+                  base.
+                </div>
+              </div>
+              <div class="ngo-card reveal">
+                <div class="ngo-title">PRS Legislative</div>
+                <div class="ngo-desc">
+                  Parliament tracking — MP performance. MP scorecard data
+                  source.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="reveal">
+              <div class="sec-label">Security System</div>
+              <h2 class="sec-title">FAKE AUR<br />HACKING SE BACHAV</h2>
+              <div class="sec-rule"></div>
+              <p style="color: var(--muted); font-size: 14px; margin-top: 16px">
+                6-layer protection — fake complaints, VPN misuse, political
+                attacks, hacking.
+              </p>
+            </div>
+            <div style="margin-top: 24px">
+              <div class="sec-box reveal">
+                <div class="sec-icon">AI</div>
+                <div>
+                  <div class="sec-title">AI + Community Verification</div>
+                  <p class="sec-desc">
+                    Fake complaint tab verified hogi jab 5 real users same area
+                    se confirm karein.
+                  </p>
+                </div>
+              </div>
+              <div class="sec-box reveal">
+                <div class="sec-icon">VPN</div>
+                <div>
+                  <div class="sec-title">Device Fingerprinting</div>
+                  <p class="sec-desc">
+                    VPN IP change kare — lekin device fingerprint nahi badle.
+                    VPN complaint = weight 0.1 only.
+                  </p>
+                </div>
+              </div>
+              <div class="sec-box reveal">
+                <div class="sec-icon">🔒</div>
+                <div>
+                  <div class="sec-title">Evidence Encrypted + Auto-Delete</div>
+                  <p class="sec-desc">
+                    Video phone se auto-delete — encrypted server pe safe.
+                    Police check kare toh phone mein kuch nahi.
+                  </p>
+                </div>
+              </div>
+              <div class="sec-box reveal">
+                <div class="sec-icon">⚖️</div>
+                <div>
+                  <div class="sec-title">Right to Reply</div>
+                  <p class="sec-desc">
+                    Neta ko 24hr milte hain respond karne ke liye. Dono sides
+                    public ko dikhti hain.
+                  </p>
+                </div>
+              </div>
+              <div class="sec-box reveal">
+                <div class="sec-icon">🪤</div>
+                <div>
+                  <div class="sec-title">Honeypot Traps</div>
+                  <p class="sec-desc">
+                    Fake constituencies — misuse karne wale automatically
+                    expose. Open source code.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPARE -->
+    <section id="compare">
+      <div class="container">
+        <div class="reveal" style="text-align: center">
+          <div class="sec-label" style="color: var(--red)">Comparison</div>
+          <h2 class="sec-title" style="color: var(--paper)">
+            AWAAZ VS EXISTING PLATFORMS
+          </h2>
+        </div>
+        <div style="overflow-x: auto">
+          <table class="compare-table reveal">
+            <thead>
+              <tr>
+                <th
+                  style="
+                    color: rgba(255, 255, 255, 0.7);
+                    font-size: 12px;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                  "
+                >
+                  Feature
+                </th>
+                <th
+                  style="
+                    color: rgba(255, 255, 255, 0.5);
+                    font-size: 12px;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                  "
+                >
+                  CPGRAMS
+                </th>
+                <th
+                  style="
+                    color: rgba(255, 255, 255, 0.5);
+                    font-size: 12px;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                  "
+                >
+                  I Paid A Bribe
+                </th>
+                <th class="aw">AWAAZ</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Controlled by</td>
+                <td>Government</td>
+                <td>NGO</td>
+                <td class="aw">Public / Open Source</td>
+              </tr>
+              <tr>
+                <td>Login Required</td>
+                <td>Yes</td>
+                <td>Optional</td>
+                <td class="aw">No — Fully Anonymous</td>
+              </tr>
+              <tr>
+                <td>Auto Escalation</td>
+                <td class="check-n">✗</td>
+                <td class="check-n">✗</td>
+                <td class="aw check-y">✓ 10-Step Chain</td>
+              </tr>
+              <tr>
+                <td>RTI Auto-File</td>
+                <td class="check-n">✗</td>
+                <td class="check-n">✗</td>
+                <td class="aw check-y">✓ Day 21</td>
+              </tr>
+              <tr>
+                <td>Free Lawyer</td>
+                <td class="check-n">✗</td>
+                <td class="check-n">✗</td>
+                <td class="aw check-y">✓ Day 25+</td>
+              </tr>
+              <tr>
+                <td>Neta Scorecard</td>
+                <td class="check-n">✗</td>
+                <td class="check-n">✗</td>
+                <td class="aw check-y">✓ Google Indexed</td>
+              </tr>
+              <tr>
+                <td>Evidence Protection</td>
+                <td class="check-n">✗</td>
+                <td class="check-n">✗</td>
+                <td class="aw check-y">✓ Encrypted + Auto-Delete</td>
+              </tr>
+              <tr>
+                <td>Languages</td>
+                <td style="color: rgba(255, 255, 255, 0.4)">English mostly</td>
+                <td style="color: rgba(255, 255, 255, 0.4)">English</td>
+                <td class="aw">Hindi + 12 Regional</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- JOIN -->
+    <section id="join">
+      <div class="container" style="text-align: center">
+        <div class="reveal">
+          <div class="sec-label">Join The Movement</div>
+          <h2 class="sec-title">AAGE KYA<br />KARNA HAI?</h2>
+          <div class="sec-rule center"></div>
+        </div>
+        <div class="cta-grid">
+          <div class="cta-card reveal">
+            <div class="cta-num">01 — CJP Ko Submit Karo</div>
+            <p class="cta-desc">
+              Abhijeet Dipke ko X pe tag karo — @CockroachJanta — yeh manifesto
+              mein fit hota hai.
+            </p>
+          </div>
+          <div class="cta-card reveal d1">
+            <div class="cta-num">02 — NGOs Ko Dikhao</div>
+            <p class="cta-desc">
+              I Paid A Bribe, Janaagraha, local RTI activists — unhe yeh website
+              bhejo. Partnership chahiye.
+            </p>
+          </div>
+          <div class="cta-card reveal d2">
+            <div class="cta-num">03 — Tech Volunteers</div>
+            <p class="cta-desc">
+              Developers, designers, data analysts — platform build karna hai.
+              CJP se connect karo.
+            </p>
+          </div>
+          <div class="cta-card reveal d3">
+            <div class="cta-num">04 — Spread Karo</div>
+            <p class="cta-desc">
+              Yeh link WhatsApp groups mein bhejo — gaon ke, college ke, sheher
+              ke. Jitna spread, utna pressure.
+            </p>
+          </div>
+        </div>
+        <div class="share-btns reveal">
+          <button class="share-btn dark" onclick="shareWhatsApp()">
+            📱 WhatsApp Pe Share Karo
+          </button>
+          <button class="share-btn light" onclick="shareTwitter()">
+            🐦 X Pe Share Karo
+          </button>
+          <button class="share-btn light" id="copy-btn" onclick="copyLink()">
+            🔗 Link Copy Karo
+          </button>
+        </div>
+        <div class="final-quote reveal">
+          <p class="quote-text">
+            "GRAM PANCHAYAT SE PARLIAMENT TAK — EK PHOTO, EK CLICK, 30 DIN MEIN
+            ACTION."
+          </p>
+          <div class="dashed" style="margin-bottom: 16px"></div>
+          <p class="quote-sub">
+            #MainBhiCockroach &nbsp;·&nbsp; cockroachjantaparty.org
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-logo">
+          <span class="roach">🪳</span>
+          <div>
+            <div class="footer-brand">AWAAZ</div>
+            <div class="footer-sub">Cockroach Janta Party — May 2026</div>
+          </div>
+        </div>
+        <div class="footer-center">
+          <div class="tagline">YOU CANNOT SQUASH A MOVEMENT</div>
+          <div class="sub2">Secular · Socialist · Democratic · Lazy</div>
+        </div>
+        <div class="footer-right">
+          <div>#MainBhiCockroach</div>
+          <div>cockroachjantaparty.org</div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Scroll reveal
+      const obs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) e.target.classList.add("on");
+          });
+        },
+        { threshold: 0.08 },
+      );
+      document.querySelectorAll(".reveal").forEach((el) => obs.observe(el));
+
+      // Progress bar
+      window.addEventListener("scroll", () => {
+        const p =
+          (window.scrollY /
+            (document.documentElement.scrollHeight - innerHeight)) *
+          100;
+        document.getElementById("prog").style.width = p + "%";
+        document.getElementById("navbar").style.boxShadow =
+          window.scrollY > 10 ? "0 4px 0 rgba(0,0,0,.15)" : "none";
+      });
+
+      // Active nav
+      const sections = document.querySelectorAll("section[id]");
+      const links = document.querySelectorAll(".nav-links a");
+      window.addEventListener("scroll", () => {
+        let cur = "";
+        sections.forEach((s) => {
+          if (window.scrollY >= s.offsetTop - 80) cur = s.id;
+        });
+        links.forEach((l) =>
+          l.classList.toggle("active", l.getAttribute("href") === "#" + cur),
+        );
+      });
+
+      // Mobile menu
+      function toggleMenu() {
+        const m = document.getElementById("mobile-nav");
+        const open = m.style.display === "flex";
+        m.style.display = open ? "none" : "flex";
+      }
+      function closeMenu() {
+        document.getElementById("mobile-nav").style.display = "none";
+      }
+
+      // Stat counter
+      document.querySelectorAll("[data-target]").forEach((el) => {
+        const target = +el.dataset.target;
+        let cur = 0;
+        const o2 = new IntersectionObserver((entries) => {
+          if (entries[0].isIntersecting) {
+            const iv = setInterval(() => {
+              cur += Math.ceil(target / 25);
+              if (cur >= target) {
+                el.textContent = target;
+                clearInterval(iv);
+              } else el.textContent = cur;
+            }, 60);
+            o2.disconnect();
+          }
+        });
+        o2.observe(el);
+      });
+
+      // Smooth scroll
+      document.querySelectorAll('a[href^="#"]').forEach((a) => {
+        a.addEventListener("click", function (e) {
+          const t = document.querySelector(this.getAttribute("href"));
+          if (t) {
+            e.preventDefault();
+            window.scrollTo({ top: t.offsetTop - 64, behavior: "smooth" });
+          }
+        });
+      });
+
+      // Share
+      function shareWhatsApp() {
+        const text = encodeURIComponent(
+          "🪳 AWAAZ — India ka anti-corruption platform!\nGram Panchayat se Parliament tak — ek photo, ek click, 30 din mein action.\n#MainBhiCockroach\n" +
+            location.href,
+        );
+        window.open("https://wa.me/?text=" + text, "_blank");
+      }
+      function shareTwitter() {
+        const text = encodeURIComponent(
+          "🪳 AWAAZ — Ek photo, ek click, 30 din mein action.\nGram Panchayat se Parliament tak auto-escalation.\nFree RTI + Free Lawyer.\n#MainBhiCockroach #CockroachJantaParty",
+        );
+        window.open("https://twitter.com/intent/tweet?text=" + text, "_blank");
+      }
+      function copyLink() {
+        navigator.clipboard.writeText(location.href).then(() => {
+          const b = document.getElementById("copy-btn");
+          b.textContent = "✓ Copied!";
+          setTimeout(() => (b.textContent = "🔗 Link Copy Karo"), 2000);
+        });
+      }
+    </script>
+  </body>
+</html>
