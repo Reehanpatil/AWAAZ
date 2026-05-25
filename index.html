@@ -4,10 +4,31 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <title>AWAAZ — Aam Aadmi Waali Aazaad Zameer</title>
+     <!-- SEO -->
+    <meta name="title" content="AWAAZ - Gram Panchayat Se Parliament Tak" />
+    <meta
+      name="description"
+      content="AWAAZ is a public voice platform where citizens can report corruption, road issues, garbage, water problems and government negligence using one photo and one click."
+    />
+    <meta
+      name="keywords"
+      content="AWAAZ, corruption reporting India, public complaint platform, civic tech India, gram panchayat issues, Indian youth movement, citizen reporting app, government complaint platform"
+    />
     <link
       href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans:wght@400;600;700;900&display=swap"
       rel="stylesheet"
     />
+    <!-- COCKROACH EMOJI PNG FAVICON -->
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://em-content.zobj.net/source/apple/391/cockroach_1fab3.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      href="https://em-content.zobj.net/source/apple/391/cockroach_1fab3.png"
+    />
+    
     <style>
       * {
         margin: 0;
@@ -59,131 +80,216 @@
       }
 
       /* NAVBAR */
+
       nav {
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
-        z-index: 200;
+        z-index: 999;
         background: var(--paper);
         border-bottom: 2px solid var(--ink);
-        height: 64px;
-        display: flex;
-        align-items: center;
+        backdrop-filter: blur(10px);
       }
+
       .nav-inner {
         max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 24px;
-        width: 100%;
+        height: 70px;
+        margin: auto;
+        padding: 0 22px;
         display: flex;
         align-items: center;
         justify-content: space-between;
       }
+
+      /* LOGO */
       .nav-logo {
         display: flex;
         align-items: center;
         gap: 10px;
+        z-index: 1001;
       }
+
       .nav-logo .roach {
-        font-size: 28px;
-        transition: transform 0.3s;
+        font-size: 30px;
+        transition: 0.4s;
       }
-      .nav-logo .roach:hover {
-        transform: rotate(180deg) scale(1.3);
+
+      .nav-logo:hover .roach {
+        transform: rotate(180deg) scale(1.2);
       }
+
       .logo-text {
         font-family: "Bebas Neue", sans-serif;
-        font-size: 26px;
+        font-size: 28px;
         letter-spacing: 2px;
-        line-height: 1;
+        color: var(--ink);
       }
+
       .logo-sub {
         font-size: 10px;
         color: var(--muted);
         letter-spacing: 1px;
       }
+
+      /* DESKTOP LINKS */
       .nav-links {
         display: flex;
         align-items: center;
         gap: 28px;
       }
+
       .nav-links a {
+        position: relative;
         font-size: 12px;
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 1.5px;
         color: var(--ink);
-        position: relative;
-        padding-bottom: 2px;
+        padding-bottom: 4px;
+        transition: 0.3s;
       }
+
       .nav-links a::after {
         content: "";
         position: absolute;
-        bottom: 0;
         left: 0;
-        width: 0;
+        bottom: 0;
+        width: 0%;
         height: 2px;
         background: var(--red);
-        transition: width 0.3s;
+        transition: 0.3s;
       }
-      .nav-links a:hover::after,
-      .nav-links a.active::after {
+
+      .nav-links a:hover::after {
         width: 100%;
       }
+
+      /* CTA */
       .nav-cta {
         background: var(--red);
-        color: var(--paper);
-        padding: 9px 20px;
-        font-size: 12px;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 1.5px;
+        color: white !important;
+        padding: 10px 18px;
         border: 2px solid var(--ink);
-        box-shadow: 3px 3px 0 var(--ink);
-        transition: all 0.2s;
-      }
-      .nav-cta:hover {
-        background: var(--redl);
-        transform: translate(-1px, -1px);
         box-shadow: 4px 4px 0 var(--ink);
+        transition: 0.25s;
       }
-      .hamburger {
+
+      .nav-cta:hover {
+        transform: translate(-2px, -2px);
+        box-shadow: 6px 6px 0 var(--ink);
+      }
+
+      /* MENU BUTTON */
+      .menu-toggle {
+        width: 48px;
+        height: 48px;
+        border: none;
+        background: transparent;
         display: none;
         flex-direction: column;
-        gap: 5px;
+        justify-content: center;
+        gap: 6px;
         cursor: pointer;
-        padding: 8px;
+        z-index: 1001;
       }
-      .hamburger span {
-        width: 24px;
-        height: 2px;
+
+      .menu-toggle span {
+        width: 28px;
+        height: 3px;
         background: var(--ink);
-        display: block;
-        transition: all 0.3s;
+        border-radius: 10px;
+        transition: all 0.35s ease;
       }
+
+      /* ANIMATION TO CLOSE ICON */
+      .menu-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(6px, 7px);
+      }
+
+      .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+      }
+
+      .menu-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(6px, -7px);
+      }
+
+      /* MOBILE NAV */
       #mobile-nav {
-        display: none;
-        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
         background: var(--paper);
         border-top: 2px solid var(--ink);
-        padding: 16px 24px;
-        gap: 0;
+
+        display: flex;
+        flex-direction: column;
+
+        max-height: 0;
+        overflow: hidden;
+
+        opacity: 0;
+        transform: translateY(-20px);
+
+        transition:
+          max-height 0.45s ease,
+          opacity 0.35s ease,
+          transform 0.35s ease;
+
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
       }
+
+      #mobile-nav.active {
+        max-height: 500px;
+        opacity: 1;
+        transform: translateY(0);
+      }
+
       #mobile-nav a {
-        display: block;
-        padding: 12px 0;
+        padding: 16px 24px;
+        border-bottom: 1px solid var(--border);
         font-size: 13px;
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 1px;
-        border-bottom: 1px solid var(--border);
+        transition: 0.25s;
       }
+
+      #mobile-nav a:hover {
+        background: rgba(255, 0, 0, 0.05);
+        padding-left: 32px;
+      }
+
       #mobile-nav .nav-cta {
-        margin-top: 12px;
+        margin: 18px 24px;
         text-align: center;
-        display: block;
-        box-shadow: none;
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 950px) {
+        .nav-links {
+          display: none;
+        }
+
+        .menu-toggle {
+          display: flex;
+        }
+      }
+
+      @media (max-width: 500px) {
+        .logo-text {
+          font-size: 24px;
+        }
+
+        .logo-sub {
+          font-size: 9px;
+        }
+
+        .nav-inner {
+          padding: 0 16px;
+        }
       }
 
       /* MARQUEE */
@@ -1166,7 +1272,7 @@
     <!-- Progress -->
     <div id="prog" style="width: 0%"></div>
 
-    <!-- NAVBAR -->
+   <!-- NAVBAR -->
     <nav id="navbar">
       <div class="nav-inner">
         <a href="#home" class="nav-logo">
@@ -1176,6 +1282,8 @@
             <div class="logo-sub">Cockroach Janta Party</div>
           </div>
         </a>
+
+        <!-- DESKTOP NAV -->
         <div class="nav-links">
           <a href="#problem">Samasya</a>
           <a href="#features">Features</a>
@@ -1185,18 +1293,24 @@
           <a href="#ngo">NGO</a>
           <a href="https://docs.google.com/forms/d/e/1FAIpQLSfxc2F9NLOSLa1wZFCpXIuwDzxQ5n_yH5VSDAN9AUwko52Cdw/viewform?usp=publish-editor" class="nav-cta">Join Movement</a>
         </div>
-        <div class="hamburger" onclick="toggleMenu()">
-          <span id="h1"></span><span id="h2"></span><span id="h3"></span>
-        </div>
+
+        <!-- MOBILE MENU BUTTON -->
+        <button class="menu-toggle" id="menu-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </div>
+
+      <!-- MOBILE NAV -->
       <div id="mobile-nav">
-        <a href="#problem" onclick="closeMenu()">Samasya</a>
-        <a href="#features" onclick="closeMenu()">Features</a>
-        <a href="#how" onclick="closeMenu()">30-Din Escalation</a>
-        <a href="#example" onclick="closeMenu()">Real Example</a>
-        <a href="#categories" onclick="closeMenu()">Categories</a>
-        <a href="#ngo" onclick="closeMenu()">NGO + Security</a>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfxc2F9NLOSLa1wZFCpXIuwDzxQ5n_yH5VSDAN9AUwko52Cdw/viewform?usp=publish-editor" class="nav-cta" onclick="closeMenu()">Join Movement</a>
+        <a href="#problem">Samasya</a>
+        <a href="#features">Features</a>
+        <a href="#how">30-Din Escalation</a>
+        <a href="#example">Real Example</a>
+        <a href="#categories">Categories</a>
+        <a href="#ngo">NGO + Security</a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfxc2F9NLOSLa1wZFCpXIuwDzxQ5n_yH5VSDAN9AUwko52Cdw/viewform?usp=publish-editor" class="nav-cta">Join Movement</a>
       </div>
     </nav>
 
@@ -2080,37 +2194,98 @@
 
       // Progress bar
       window.addEventListener("scroll", () => {
-        const p =
+        const progress =
           (window.scrollY /
-            (document.documentElement.scrollHeight - innerHeight)) *
+            (document.documentElement.scrollHeight - window.innerHeight)) *
           100;
-        document.getElementById("prog").style.width = p + "%";
+
+        document.getElementById("prog").style.width = progress + "%";
+
         document.getElementById("navbar").style.boxShadow =
-          window.scrollY > 10 ? "0 4px 0 rgba(0,0,0,.15)" : "none";
+          window.scrollY > 10 ? "0 8px 24px rgba(0,0,0,0.12)" : "none";
       });
 
-      // Active nav
+      // =========================
+      // ACTIVE NAV LINK
+      // =========================
       const sections = document.querySelectorAll("section[id]");
-      const links = document.querySelectorAll(".nav-links a");
+      const desktopLinks = document.querySelectorAll(".nav-links a");
+      const mobileLinks = document.querySelectorAll("#mobile-nav a");
+
       window.addEventListener("scroll", () => {
-        let cur = "";
-        sections.forEach((s) => {
-          if (window.scrollY >= s.offsetTop - 80) cur = s.id;
+        let current = "";
+
+        sections.forEach((section) => {
+          const sectionTop = section.offsetTop - 120;
+
+          if (window.scrollY >= sectionTop) {
+            current = section.getAttribute("id");
+          }
         });
-        links.forEach((l) =>
-          l.classList.toggle("active", l.getAttribute("href") === "#" + cur),
-        );
+
+        // Desktop Active
+        desktopLinks.forEach((link) => {
+          link.classList.toggle(
+            "active",
+            link.getAttribute("href") === "#" + current,
+          );
+        });
+
+        // Mobile Active
+        mobileLinks.forEach((link) => {
+          link.classList.toggle(
+            "active",
+            link.getAttribute("href") === "#" + current,
+          );
+        });
       });
 
-      // Mobile menu
+      // =========================
+      // MOBILE MENU
+      // =========================
+      const menuToggle = document.getElementById("menu-toggle");
+      const mobileNav = document.getElementById("mobile-nav");
+
+      // Toggle Menu
       function toggleMenu() {
-        const m = document.getElementById("mobile-nav");
-        const open = m.style.display === "flex";
-        m.style.display = open ? "none" : "flex";
+        menuToggle.classList.toggle("active");
+        mobileNav.classList.toggle("active");
+
+        // Prevent body scroll when menu open
+        document.body.classList.toggle("menu-open");
       }
+
+      // Close Menu
       function closeMenu() {
-        document.getElementById("mobile-nav").style.display = "none";
+        menuToggle.classList.remove("active");
+        mobileNav.classList.remove("active");
+        document.body.classList.remove("menu-open");
       }
+
+      // Button Click
+      menuToggle.addEventListener("click", toggleMenu);
+
+      // Auto Close After Click
+      mobileLinks.forEach((link) => {
+        link.addEventListener("click", closeMenu);
+      });
+
+      // Close on Outside Click
+      document.addEventListener("click", (e) => {
+        const clickedInsideNav =
+          mobileNav.contains(e.target) || menuToggle.contains(e.target);
+
+        if (!clickedInsideNav && mobileNav.classList.contains("active")) {
+          closeMenu();
+        }
+      });
+
+      // Close on Resize
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 950) {
+          closeMenu();
+        }
+      });
 
       // Stat counter
       document.querySelectorAll("[data-target]").forEach((el) => {
